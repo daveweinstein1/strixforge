@@ -8,6 +8,13 @@ source "$(dirname "$0")/../lib/common.sh"
 stage_start "07-user-apps"
 check_root
 
+REAL_USER=$(logname || echo $SUDO_USER)
+if [ -z "$REAL_USER" ]; then
+    error "Cannot detect non-root user (SUDO_USER) required for AUR operations."
+    exit 1
+fi
+info "AUR operations will run as user: $REAL_USER"
+
 # ----------------------------------------------------------------------------
 # Step 0: AUR Helper (Required for some apps)
 # ----------------------------------------------------------------------------
@@ -29,18 +36,18 @@ if confirm_yes "Install Firefox?"; then
 fi
 
 if confirm "Install Google Chrome?"; then
-    run_cmd "Installing Chrome" yay -S --needed --noconfirm google-chrome
+    run_cmd "Installing Chrome" sudo -u "$REAL_USER" yay -S --needed --noconfirm google-chrome
 fi
 
 if confirm "Install Ungoogled Chromium?"; then
-    run_cmd "Installing Ungoogled Chromium" yay -S --needed --noconfirm ungoogled-chromium-bin
+    run_cmd "Installing Ungoogled Chromium" sudo -u "$REAL_USER" yay -S --needed --noconfirm ungoogled-chromium-bin
 fi
 
 if confirm "Install Helium Browser?"; then
     # Helium often carbon-based or minimal floating browser.
     # Assuming 'helium-browser' or 'helium'. 
     # If not found, manual build required.
-    run_cmd "Installing Helium" yay -S --needed --noconfirm helium
+    run_cmd "Installing Helium" sudo -u "$REAL_USER" yay -S --needed --noconfirm helium
 fi
 
 # ----------------------------------------------------------------------------
@@ -51,7 +58,7 @@ step 2 "Install Development Tools"
 if confirm_yes "Install Antigravity (IDE)?"; then
     # Confirmed package name: antigravity-bin (AUR)
     # Using -bin version for stability and speed
-    run_cmd "Installing Antigravity IDE" yay -S --needed --noconfirm antigravity-bin
+    run_cmd "Installing Antigravity IDE" sudo -u "$REAL_USER" yay -S --needed --noconfirm antigravity-bin
 else
     info "Skipping Antigravity."
 fi
@@ -62,7 +69,7 @@ fi
 step 3 "Install Office Suite"
 
 if confirm "Install OnlyOffice?"; then
-    run_cmd "Installing OnlyOffice" yay -S --needed --noconfirm onlyoffice-bin
+    run_cmd "Installing OnlyOffice" sudo -u "$REAL_USER" yay -S --needed --noconfirm onlyoffice-bin
 fi
 
 # ----------------------------------------------------------------------------
