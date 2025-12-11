@@ -35,8 +35,10 @@ if confirm_yes "Install Mesa packages?"; then
     CURRENT_VER=$(get_version mesa)
     log "Installed Mesa: $CURRENT_VER"
     
-    MAJ=$(echo "$CURRENT_VER" | cut -d. -f1)
-    MIN=$(echo "$CURRENT_VER" | cut -d. -f2)
+    # Strip Epoch (e.g., 1:25.3.1 -> 25.3.1) for comparison
+    CLEAN_VER=$(echo "$CURRENT_VER" | cut -d: -f2)
+    MAJ=$(echo "$CLEAN_VER" | cut -d. -f1)
+    MIN=$(echo "$CLEAN_VER" | cut -d. -f2)
     
     if [ "$MAJ" -ge 25 ]; then
         success "Version $CURRENT_VER is EXCELLENT (25.x series)"
