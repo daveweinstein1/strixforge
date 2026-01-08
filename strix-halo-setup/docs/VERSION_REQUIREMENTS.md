@@ -3,7 +3,7 @@
 
 | Component | Minimum | Recommended | Reason |
 |-----------|---------|-------------|--------|
-| **Kernel** | 6.14 | **6.17+** | 6.14 = AMDXDNA NPU driver, 6.17+ = stable performance |
+| **Kernel** | 6.14 | **6.18+** | 6.14 = AMDXDNA NPU driver, 6.18+ = latest improvements |
 | **Mesa** | 25.0 | **25.4+** | GFX1151 Graphics Support |
 | **ROCm** | 7.1 | **7.2+** | **CRITICAL**: Full Strix Halo compute support (CES 2026) |
 | **LLVM** | 19.x | **21.x** | Shader Compiler |
