@@ -8,7 +8,7 @@ source "$(dirname "$0")/../lib/common.sh"
 stage_start "01-kernel-config"
 check_root
 
-log "Requirements: Kernel 6.14+ min, 6.18+ rec (Strix Halo NPU/ISP)"
+log "Requirements: Kernel 6.18+ (Strix Halo NPU/GPU support)"
 
 # ----------------------------------------------------------------------------
 # Step 1: Backup GRUB
@@ -33,19 +33,14 @@ log "Current kernel: $KERNEL_CURRENT"
 K_MAJ=$(echo "$KERNEL_CURRENT" | cut -d. -f1)
 K_MIN=$(echo "$KERNEL_CURRENT" | cut -d. -f2)
 
-# Check for 6.14+ (AMDXDNA NPU driver), recommend 6.18+
+# Require 6.18+ - no fallbacks
 if [ "$K_MAJ" -gt 6 ] || { [ "$K_MAJ" -eq 6 ] && [ "$K_MIN" -ge 18 ]; }; then
-    success "Kernel version $KERNEL_CURRENT meets recommended requirement (6.18+)"
-elif [ "$K_MAJ" -eq 6 ] && [ "$K_MIN" -ge 14 ]; then
-    warn "Kernel version $KERNEL_CURRENT meets minimum (6.14+) but 6.18+ recommended"
-    warn "6.18+ has latest AMDXDNA improvements for Strix Halo."
+    success "Kernel version $KERNEL_CURRENT meets requirement (6.18+)"
 else
-    warn "Kernel version $KERNEL_CURRENT is older than required (6.14+)"
-    warn "Strix Halo (gfx1151) NPU support requires kernel 6.14+ (AMDXDNA driver)."
-    if ! confirm "Continue anyway (Not Recommended)?"; then
-        stage_failed
-        exit 1
-    fi
+    error "Kernel version $KERNEL_CURRENT is too old! Strix Halo requires 6.18+"
+    error "Please update your kernel before continuing."
+    stage_failed
+    exit 1
 fi
 
 # ----------------------------------------------------------------------------

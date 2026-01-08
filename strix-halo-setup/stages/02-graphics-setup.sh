@@ -9,7 +9,7 @@ stage_start "02-graphics-setup"
 check_root
 
 log "Target: AMD Strix Halo (gfx1151)"
-log "Requirements (Jan 2026): Mesa 25.0+ (25.4+ rec), LLVM 19+ (21+ rec)"
+log "Requirements (Jan 2026): Mesa 25.3+, LLVM 21.x"
 
 # ----------------------------------------------------------------------------
 # Step 1: Sync Database
@@ -40,17 +40,14 @@ if confirm_yes "Install Mesa packages?"; then
     MAJ=$(echo "$CLEAN_VER" | cut -d. -f1)
     MIN=$(echo "$CLEAN_VER" | cut -d. -f2)
     
-    if [ "$MAJ" -ge 25 ]; then
-        success "Version $CURRENT_VER is EXCELLENT (25.x series)"
-    elif [ "$MAJ" -eq 24 ] && [ "$MIN" -ge 1 ]; then
-        success "Version $CURRENT_VER is ADEQUATE (24.1+)"
+    # Require Mesa 25.3+
+    if [ "$MAJ" -ge 26 ] || { [ "$MAJ" -eq 25 ] && [ "$MIN" -ge 3 ]; }; then
+        success "Mesa $CURRENT_VER meets requirement (25.3+)"
     else
-        warn "Version $CURRENT_VER is potentially too old for gfx1150!"
-        warn "Consider enabling CachyOS testing repos or manual update."
-        if ! confirm "Continue despite version warning?"; then
-            stage_failed
-            exit 1
-        fi
+        error "Mesa $CURRENT_VER is too old! Strix Halo requires 25.3+"
+        error "Enable CachyOS v3/v4 repos for updated Mesa."
+        stage_failed
+        exit 1
     fi
 fi
 
@@ -89,17 +86,17 @@ info "Packages: $PACKAGES"
 if confirm_yes "Install LLVM packages?"; then
     run_cmd "Installing LLVM" pacman -S --needed --noconfirm $PACKAGES
     
-    # Check version
+    # Check version - require 21.x
     LLVM_VER=$(llvm-config --version 2>/dev/null || echo "unknown")
     log "Installed LLVM: $LLVM_VER"
     
     MAJ=$(echo "$LLVM_VER" | cut -d. -f1)
     if [ "$MAJ" -ge 21 ]; then
-        success "LLVM $LLVM_VER is Current Stable (Dec 2025)"
-    elif [ "$MAJ" -ge 17 ]; then
-        success "LLVM $LLVM_VER meets minimum requirements"
+        success "LLVM $LLVM_VER meets requirement (21.x+)"
     else
-        warn "LLVM $LLVM_VER is old! Needs 17+ for gfx1150 backend."
+        error "LLVM $LLVM_VER is too old! Strix Halo requires 21.x+"
+        stage_failed
+        exit 1
     fi
 fi
 

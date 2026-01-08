@@ -1,16 +1,15 @@
 # Version Requirements (Strix Halo)
 *Updated: January 9, 2026*
 
-| Component | Minimum | Recommended | Reason |
-|-----------|---------|-------------|--------|
-| **Kernel** | 6.14 | **6.18+** | 6.14 = AMDXDNA NPU driver, 6.18+ = latest improvements |
-| **Mesa** | 25.0 | **25.4+** | GFX1151 Graphics Support |
-| **ROCm** | 7.1 | **7.2+** | **CRITICAL**: Full Strix Halo compute support (CES 2026) |
-| **LLVM** | 19.x | **21.x** | Shader Compiler |
+| Component | Required | Current Stable | Notes |
+|-----------|----------|----------------|-------|
+| **Kernel** | **6.18+** | 6.18.4 | Full AMDXDNA NPU + Strix Halo support |
+| **Mesa** | **25.3+** | 25.3.3 | GFX1151 Graphics Support |
+| **ROCm** | **7.2+** | 7.2 (CES 2026) | Full Strix Halo compute support |
+| **LLVM** | **21.x** | 21.1.8 | Shader Compiler |
 
 > [!IMPORTANT]
-> Use CachyOS `v3` or `v4` repositories to ensure you get these bleeding-edge versions. Standard Arch repos may trail behind.
+> Use CachyOS `v3` or `v4` repositories to get these versions.
 
 > [!NOTE]
-> **Strix Halo = gfx1151** (Ryzen AI Max+). Strix Point = gfx1150 (different chip).
-> Linux 6.18 has a known bug affecting gfx1150, but gfx1151 appears unaffected.
+> **Strix Halo = gfx1151** (Ryzen AI Max+). This is different from Strix Point (gfx1150).

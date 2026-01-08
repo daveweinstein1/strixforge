@@ -52,11 +52,12 @@ if confirm_yes "Create/Setup 'ai-lab'?"; then
         # Use pacman -Q (short) and strip epoch (cut -d: -f2)
         ROCM_VER=$(lxc exec ai-lab -- pacman -Q rocm-core 2>/dev/null | awk '{print $2}' | cut -d: -f2)
         
-        if [[ "$ROCM_VER" == 7.* ]]; then
-            success "ROCm 7.x detected ($ROCM_VER) - Strix Halo Ready"
+        if [[ "$ROCM_VER" == 7.2* ]] || [[ "$ROCM_VER" == 7.3* ]] || [[ "$ROCM_VER" == 8.* ]]; then
+            success "ROCm $ROCM_VER meets requirement (7.2+)"
         else
-            warn "ROCm version is $ROCM_VER. Strix Halo requires 7.1+!"
-            warn "Ensure 'cachyos-extra-v3' repo is active inside container."
+            error "ROCm version is $ROCM_VER. Strix Halo requires 7.2+!"
+            error "Ensure CachyOS repos are active inside container."
+            # Continue but warn - container can be fixed later
         fi
 
         success "AI Stack installed"
