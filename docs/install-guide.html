@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CachyOS Installation Guide: Strix Halo</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
     <style>
         :root {
             --primary-color: #004d40;
@@ -197,6 +199,16 @@
             background-color: #e8f5e9;
             border-color: #66bb6a;
             color: #1b5e20;
+        }
+
+        /* Mermaid Diagram Container */
+        .mermaid {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
         }
 
         /* Mobile Adjustments */
@@ -478,7 +490,7 @@
                         <td>Interactive stage selection</td>
                     </tr>
                     <tr>
-                        <td><code>--marketplace</code></td>
+                        <td><code>--hub</code></td>
                         <td>Browse and install community containers</td>
                     </tr>
                     <tr>
@@ -493,10 +505,10 @@
             </table>
         </div>
 
-        <h3>Container Marketplace</h3>
+        <h3>Container Hub</h3>
         <p>The installer includes a graphical browser for community-maintained container images optimized for Strix
-            Halo. Launch the marketplace to explore available toolboxes:</p>
-        <pre><code>strix-install --marketplace</code></pre>
+            Halo. Launch the hub to explore available toolboxes:</p>
+        <pre><code>strix-install --hub</code></pre>
 
         <div class="table-responsive">
             <table>
@@ -521,14 +533,14 @@
                     <tr>
                         <td><strong>Community</strong></td>
                         <td>Verified community contributions</td>
-                        <td>(Varies — see marketplace)</td>
+                        <td>(Varies — see hub)</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <div class="alert alert-info">
-            <strong>Usage:</strong> Select an image from the marketplace and install it into an existing LXD container
+            <strong>Usage:</strong> Select an image from the hub and install it into an existing LXD container
             (e.g., <code>ai-lab</code> or <code>dev-lab</code>). The installer will execute
             <code>lxc exec &lt;container&gt; -- toolbox create &lt;name&gt; --image &lt;url&gt;</code> for you.
         </div>
@@ -923,6 +935,19 @@ ROCm/AI
         <h2>Technical Architecture</h2>
         <p>For a deep dive on how the installer works, stage dependencies, and deployment flow, see the <a
                 href="ARCHITECTURE.md">Architecture Document</a>.</p>
+
+        <div class="mermaid">
+            graph TD
+            A[Boot CachyOS] --> B[Install OS]
+            B --> C[Run strix-install]
+            C --> D{Check Device}
+            D -->|Beelink| E[Apply E610 Fix]
+            D -->|Framework| F[Standard Config]
+            E --> G[Install GPU Stack]
+            F --> G
+            G --> H[Setup Containers]
+            H --> I[Optional: Container Hub]
+        </div>
 
         <hr style="margin: 40px 0; border: 0; border-top: 1px solid var(--border-color);">
 
