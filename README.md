@@ -44,16 +44,12 @@
 
 ## Quick Install
 
+Once the repo is public:
 ```bash
-curl -fsSL https://github.com/daveweinstein1/strix-halo-setup/releases/latest/download/strix-install -o /tmp/strix-install && chmod +x /tmp/strix-install && sudo /tmp/strix-install
+curl -fsSL https://github.com/daveweinstein1/strix-halo-setup/releases/latest/download/strix-install -o /tmp/s && chmod +x /tmp/s && sudo /tmp/s
 ```
 
-**Options:**
-```bash
-sudo ./strix-install          # Auto-detect (web or TUI)
-sudo ./strix-install --tui    # Force terminal mode
-sudo ./strix-install --web    # Force browser mode
-```
+**Options:** `--tui` (terminal) or `--web` (browser)
 
 ---
 
@@ -97,7 +93,7 @@ sudo ./strix-install --web    # Force browser mode
 
 ## License
 
-**[PolyForm Strict 1.0.0](LICENSE)**
+**[PolyForm Strict 1.0.0](strix-halo-setup/LICENSE)**
 
 - ✅ Personal/noncommercial use allowed
 - ✅ Educational and research use allowed
