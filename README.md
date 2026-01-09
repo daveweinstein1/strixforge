@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="strix-halo-setup/assets/logo.png" alt="Strix Halo Installer" width="120">
+  <img src="assets/logo.png" alt="Strix Halo Installer" width="120">
 </p>
 
 <h1 align="center">Strix Halo Post-Installer</h1>
@@ -30,13 +30,13 @@
 
 <p align="center">
   <strong>Terminal (TUI)</strong><br>
-  <img src="strix-halo-setup/assets/tui-screenshot.png" alt="TUI Screenshot" width="500"><br>
+  <img src="assets/tui-screenshot.png" alt="TUI Screenshot" width="500"><br>
   <em>Simulated screenshot — actual UI coming soon</em>
 </p>
 
 <p align="center">
   <strong>Web UI (Browser)</strong><br>
-  <img src="strix-halo-setup/assets/gui-screenshot.png" alt="GUI Screenshot" width="500"><br>
+  <img src="assets/gui-screenshot.png" alt="GUI Screenshot" width="500"><br>
   <em>Simulated screenshot — actual UI coming soon</em>
 </p>
 
@@ -73,7 +73,7 @@ chmod +x /tmp/strix-install
 rm -f /tmp/strix-install
 ```
 
-View the full script: [install.sh](strix-halo-setup/install.sh)
+View the full script: [install.sh](install.sh)
 
 </details>
 
@@ -110,7 +110,7 @@ AI and development tools are **bleeding edge** — ROCm, PyTorch, and AI coding 
 - **Instant rollback** — Restore snapshots when experiments fail
 - **Fresh starts** — Delete and recreate containers in minutes
 
-📖 Full details: [Container Strategy](strix-halo-setup/docs/CONTAINER_STRATEGY.md)
+📖 Full details: [Container Strategy](docs/CONTAINER_STRATEGY.md)
 
 ---
 
@@ -138,14 +138,30 @@ AI and development tools are **bleeding edge** — ROCm, PyTorch, and AI coding 
 
 ## License
 
-**[PolyForm Strict 1.0.0](strix-halo-setup/LICENSE)**
+**[PolyForm Strict 1.0.0](LICENSE.md)**
 
-- ✅ Personal/noncommercial use allowed
-- ✅ Educational and research use allowed
-- ❌ Commercial use requires separate license
-- ❌ Redistribution not permitted
+### Why This License?
 
-**Hardware manufacturers & integrators:** Interested in bundling this with your Strix Halo products? [Open an issue](https://github.com/daveweinstein1/strix-halo-setup/issues) to discuss licensing.
+We chose the [PolyForm Strict License](https://polyformproject.org/licenses/strict/1.0.0/) because:
+
+1. **Clear terms** — Written by lawyers specifically for source-available software
+2. **Personal use allowed** — You can use this for your own projects, learning, research
+3. **Commercial use blocked** — Prevents unauthorized commercial exploitation
+4. **Future flexibility** — We can grant additional rights without changing the license
+
+### What's Allowed
+
+- ✅ Personal/noncommercial use
+- ✅ Educational and research use
+- ✅ Government and nonprofit use
+- ❌ Commercial use (requires separate license)
+- ❌ Redistribution (requires permission)
+
+### Commercial Licensing
+
+**Hardware manufacturers & system integrators:** Interested in bundling this installer with your Strix Halo products? We're open to partnership discussions and commercial licensing arrangements.
+
+👉 [Open an issue](https://github.com/daveweinstein1/strix-halo-setup/issues) with subject "Commercial License Inquiry"
 
 ---
 
@@ -154,4 +170,3 @@ AI and development tools are **bleeding edge** — ROCm, PyTorch, and AI coding 
   <strong>Contact:</strong> <a href="https://github.com/daveweinstein1/strix-halo-setup/issues">GitHub Issues</a><br>
   <strong>Updated:</strong> January 2026
 </p>
-
