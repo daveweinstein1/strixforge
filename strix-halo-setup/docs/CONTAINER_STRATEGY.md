@@ -22,10 +22,11 @@ AMD's ROCm ecosystem for consumer GPUs like Strix Halo (gfx1151) is in a **"wild
 
 AI-assisted coding tools are equally unstable:
 
-- **VS Code Copilot** updates that break extensions
-- **Cursor/Windsurf** constant experimental features
-- **Continue.dev** rapid iteration with breaking changes
-- **Local LLM integrations** (Ollama, LM Studio) version sensitivity
+- **Google Antigravity** — Rapid feature iteration, extension ecosystem changes
+- **VS Code Copilot** — Updates that break extensions
+- **Cursor/Windsurf** — Constant experimental features
+- **Continue.dev** — Rapid iteration with breaking changes
+- **Local LLM integrations** (Ollama, LM Studio) — Version sensitivity
 
 **Real-world scenario:** You try a new AI coding extension that modifies your settings. After uninstalling, your LSP configurations are corrupted.
 

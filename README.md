@@ -102,6 +102,18 @@ curl -fsSL https://github.com/daveweinstein1/strix-halo-setup/releases/latest/do
 
 ---
 
+## Why Containers?
+
+AI and development tools are **bleeding edge** — ROCm, PyTorch, and AI coding assistants update frequently with breaking changes. We isolate these in LXD containers so:
+
+- **Host stays stable** — Container breakage can't brick your system
+- **Instant rollback** — Restore snapshots when experiments fail
+- **Fresh starts** — Delete and recreate containers in minutes
+
+📖 Full details: [Container Strategy](strix-halo-setup/docs/CONTAINER_STRATEGY.md)
+
+---
+
 ## Requirements (January 2026)
 
 | Component | Required |

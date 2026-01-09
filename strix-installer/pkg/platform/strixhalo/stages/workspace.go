@@ -71,17 +71,32 @@ func (s *WorkspaceStage) createAILab(ctx context.Context, ui core.UI, lxd *syste
 		"base-devel",
 		"fastfetch",
 		"vim",
+		"ollama",
 	}
 
 	for i, pkg := range packages {
-		ui.Progress(25+(i*3), fmt.Sprintf("Installing %s...", pkg))
+		ui.Progress(25+(i*2), fmt.Sprintf("Installing %s...", pkg))
 		_, err := lxd.ExecInContainer(ctx, name, "pacman", "-S", "--needed", "--noconfirm", pkg)
 		if err != nil {
 			ui.Log(core.LogWarn, fmt.Sprintf("Failed to install %s: %v", pkg, err))
 		}
 	}
 
+	// Clone ComfyUI
+	ui.Progress(48, "Cloning ComfyUI...")
+	_, err := lxd.ExecInContainer(ctx, name, "git", "clone", "https://github.com/comfyanonymous/ComfyUI", "/opt/ComfyUI")
+	if err != nil {
+		ui.Log(core.LogWarn, fmt.Sprintf("Failed to clone ComfyUI: %v", err))
+	} else {
+		// Install ComfyUI requirements
+		ui.Progress(50, "Installing ComfyUI dependencies...")
+		_, _ = lxd.ExecInContainer(ctx, name, "pip", "install", "-r", "/opt/ComfyUI/requirements.txt")
+		ui.Log(core.LogInfo, "✓ ComfyUI installed at /opt/ComfyUI")
+	}
+
 	ui.Log(core.LogInfo, "✓ ai-lab container ready")
+	ui.Log(core.LogInfo, "  Run 'ollama pull llama3.2' to download a model")
+	ui.Log(core.LogInfo, "  Run 'python /opt/ComfyUI/main.py' to start ComfyUI")
 	return nil
 }
 

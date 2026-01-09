@@ -93,6 +93,16 @@ For AI/ML workloads with ROCm GPU acceleration:
 | `python-pip` | Extra | 24.3.1 | Python package installer |
 | `git` | Extra | 2.47.1 | Version control |
 | `base-devel` | Core | meta | Build tools |
+| `ollama` | Extra | 0.5.4 | Local LLM runner (Llama, Mistral, etc.) |
+
+**AI Applications (installed via git clone):**
+
+| Application | Version | Description |
+|-------------|---------|-------------|
+| ComfyUI | v0.7.0+ | Node-based Stable Diffusion UI with ROCm support |
+
+> **Note:** ComfyUI is cloned from git rather than pip for easier rollback via `git checkout`.
+> Ollama models are downloaded on-demand and stored in `~/.ollama/models`.
 
 ### dev-lab Container
 
