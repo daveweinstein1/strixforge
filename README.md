@@ -44,7 +44,11 @@
 
 ## Quick Install
 
+
 **Short version** (via bit.ly — *coming soon*):
+- **[Printable Web Guide](https://daveweinstein1.github.io/strix-halo-setup/install-guide.html)** (Recommended)
+- [Text Guide](docs/INSTALL_GUIDE.md)
+
 ```bash
 curl -fsSL https://bit.ly/strix-halo | sudo bash
 ```

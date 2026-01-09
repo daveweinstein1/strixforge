@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CachyOS Strix Halo Installation Guide</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #24292f;
+            --link-color: #0969da;
+            --border-color: #d0d7de;
+            --code-bg: #f6f8fa;
+            --header-bg: #f6f8fa;
+            --accent-color: #2da44e;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0d1117;
+                --text-color: #c9d1d9;
+                --link-color: #58a6ff;
+                --border-color: #30363d;
+                --code-bg: #161b22;
+                --header-bg: #161b22;
+                --accent-color: #238636;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 2em;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.3em;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.3em;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--header-bg);
+            font-weight: 600;
+        }
+
+        code {
+            font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+            background-color: var(--code-bg);
+            padding: 0.2em 0.4em;
+            border-radius: 6px;
+            font-size: 85%;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            padding: 16px;
+            overflow: auto;
+            border-radius: 6px;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+
+        blockquote {
+            border-left: 0.25em solid var(--border-color);
+            padding: 0 1em;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.2s;
+        }
+
+        .print-btn:hover {
+            opacity: 0.9;
+        }
+
+        @media print {
+            .print-btn {
+                display: none;
+            }
+
+            body {
+                max-width: 100%;
+                padding: 0;
+                color: black;
+                background: white;
+            }
+
+            a {
+                text-decoration: none;
+                color: black;
+            }
+
+            pre,
+            code {
+                border: 1px solid #ccc;
+            }
+        }
+
+        .mermaid {
+            margin: 2rem 0;
+            text-align: center;
+        }
+    </style>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</head>
+
+<body>
+
+    <button class="print-btn" onclick="window.print()">🖨️ Print Guide</button>
+
+    <h1>CachyOS Installation Guide for Strix Halo</h1>
+    <p><strong>Version</strong>: 2026.01.09 | <strong>Author</strong>: Dave Weinstein</p>
+
+    <h2>Overview</h2>
+    <p>This guide covers:</p>
+    <ol>
+        <li>Installing CachyOS on Strix Halo hardware</li>
+        <li>Running the post-install configuration</li>
+    </ol>
+
+    <hr>
+
+    <h2>Part 1: CachyOS Installation</h2>
+
+    <h3>Requirements</h3>
+    <ul>
+        <li>USB drive (16GB+)</li>
+        <li>Strix Halo hardware</li>
+        <li>Internet connection</li>
+    </ul>
+
+    <h3>Step 1: Create Bootable USB</h3>
+    <p><strong>Option A: Ventoy (Recommended)</strong></p>
+    <ol>
+        <li>Download <a href="https://www.ventoy.net/en/download.html">Ventoy</a></li>
+        <li>Install to USB drive</li>
+        <li>Copy <a href="https://cachyos.org/download/">CachyOS ISO</a> to USB</li>
+    </ol>
+
+    <h3>Step 2: BIOS Configuration</h3>
+
+    <p><strong>Global Defaults (All Devices):</strong></p>
+    <table>
+        <thead>
+            <tr>
+                <th>Setting</th>
+                <th>Value</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Secure Boot</td>
+                <td><strong>Disabled</strong></td>
+                <td>Required for CachyOS/Arch kernel modules</td>
+            </tr>
+            <tr>
+                <td>Boot Mode</td>
+                <td><strong>UEFI</strong></td>
+                <td>Legacy/CSM not supported</td>
+            </tr>
+            <tr>
+                <td>IOMMU</td>
+                <td><strong>Enabled</strong></td>
+                <td>Required for virtualization/containers</td>
+            </tr>
+            <tr>
+                <td>SVM Mode</td>
+                <td><strong>Enabled</strong></td>
+                <td>Required for virtualization</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>Device-Specific Settings</h4>
+
+    <p><strong>Beelink GTR9 Pro</strong><br>
+        <em>Known Issue: E610 10GbE causes crashes under load.</em>
+    </p>
+    <ul>
+        <li><strong>Action</strong>: Disable problematic PCIe function</li>
+        <li><strong>Path</strong>: <code>Advanced</code> → <code>Demo Board</code> → <code>PCI-E Port</code> →
+            <code>Device 3 Fun 2</code> → <strong>Disabled</strong></li>
+        <li><strong>Ref</strong>: <a href="https://forum.bee-link.com/forum.php?mod=viewthread&tid=92415">Beelink Forum
+                - E610 Crash</a></li>
+    </ul>
+
+    <p><strong>Framework Desktop</strong><br>
+        <em>Works out of the box, but verify these for optimal performance.</em>
+    </p>
+    <ul>
+        <li><strong>VRAM</strong>: Leave at "Auto" (unified memory handles it best)</li>
+        <li><strong>Power</strong>: "Balanced" is recommended; "Performance" may be loud</li>
+        <li><strong>Ref</strong>: <a
+                href="https://www.reddit.com/r/framework/comments/strix_halo_megathread">r/framework Strix Halo
+                Megathread</a></li>
+    </ul>
+
+    <p><strong>Minisforum S1 Max</strong><br>
+        <em>Advisory: USB4/Ethernet edge cases.</em>
+    </p>
+    <ul>
+        <li><strong>VRAM</strong>: Set minimum 1GB if using local LLMs (allows GTT expansion)</li>
+        <li><strong>USB4</strong>: If rear ports unstable, kernel param <code>pcie_port_pm=off</code> may help</li>
+        <li><strong>Ref</strong>: <a href="https://forum.level1techs.com/t/minisforum-s1-max-linux/203941">Level1Techs -
+                S1 Max Linux Review</a></li>
+    </ul>
+
+    <h3>Step 3: Install CachyOS</h3>
+    <ol>
+        <li>Boot from USB</li>
+        <li>Run Calamares installer</li>
+        <li><strong>Partitioning</strong>: Select BTRFS (critical for snapshots)</li>
+        <li><strong>Swap</strong>: Create swap partition (recommended: 32GB+)</li>
+        <li>Complete install & Reboot</li>
+    </ol>
+
+    <hr>
+
+    <h2>Part 2: Post-Install Configuration</h2>
+
+    <h3>Quick Install</h3>
+
+    <p><strong>Option 1: Short URL (via Bootstrap)</strong></p>
+    <pre><code>curl -fsSL https://bit.ly/strix-halo | sudo bash</code></pre>
+    <blockquote>
+        <p><strong>What this does:</strong> Fetches <code>install.sh</code> from GitHub, which downloads the binary
+            release to <code>/tmp</code> and executes it.</p>
+    </blockquote>
+
+    <p><strong>Option 2: Direct Binary Download</strong></p>
+    <pre><code>curl -fsSL https://github.com/daveweinstein1/strix-halo-setup/releases/latest/download/strix-install -o /tmp/s && chmod +x /tmp/s && sudo /tmp/s</code></pre>
+
+    <h3>Installer Options</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Flag</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>(none)</td>
+                <td>Auto-detects best UI (Web → TUI)</td>
+            </tr>
+            <tr>
+                <td><code>--tui</code></td>
+                <td>Forces Terminal UI</td>
+            </tr>
+            <tr>
+                <td><code>--web</code></td>
+                <td>Forces Web UI (localhost:8080)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>What Gets Configured</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Stage</th>
+                <th>Actions Taken</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>1. Kernel</strong></td>
+                <td>Adds <code>amd_iommu=on</code>, <code>iommu=pt</code>. Blacklists <code>ice</code> driver on
+                    Beelink.</td>
+            </tr>
+            <tr>
+                <td><strong>2. Graphics</strong></td>
+                <td>Installs Mesa 25.3+, Vulkan, LLVM 21. Configures RADV.</td>
+            </tr>
+            <tr>
+                <td><strong>3. System</strong></td>
+                <td>Updates mirrors, installs <code>base-devel</code>, <code>git</code>, <code>btop</code>.</td>
+            </tr>
+            <tr>
+                <td><strong>4. LXD</strong></td>
+                <td>Installs LXD, configures current user, enables GPU passthrough.</td>
+            </tr>
+            <tr>
+                <td><strong>5. Thermal</strong></td>
+                <td>Installs <code>lm_sensors</code>, <code>fancontrol</code>. Runs sensor detection.</td>
+            </tr>
+            <tr>
+                <td><strong>6. Cleanup</strong></td>
+                <td>Removes orphans, clears distinct package caches.</td>
+            </tr>
+            <tr>
+                <td><strong>7. Validate</strong></td>
+                <td>Checks <code>glxinfo</code>, <code>vulkaninfo</code>, container health.</td>
+            </tr>
+            <tr>
+                <td><strong>8. Apps</strong></td>
+                <td>Optional: Firefox, VLC, Signal, coding tools.</td>
+            </tr>
+            <tr>
+                <td><strong>9. Workspaces</strong></td>
+                <td>Optional: Creates <code>ai-lab</code> (ROCm) and <code>dev-lab</code> containers.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <h2>Troubleshooting</h2>
+
+    <h3>Connectivity</h3>
+    <p><strong>Ethernet keeps dropping (Beelink)</strong></p>
+    <ul>
+        <li>This is the E610 driver bug.</li>
+        <li><strong>Fix</strong>: Check BIOS settings (see Step 2). Ensure installer Stage 1 ran (blacklists
+            <code>ice</code>).</li>
+        <li><strong>Workaround</strong>: Use Wi-Fi or USB-C Ethernet dongle.</li>
+    </ul>
+
+    <p><strong>Wi-Fi slow/unstable</strong></p>
+    <ul>
+        <li><strong>Fix</strong>: Disable power saving: <code>sudo iw dev wlan0 set power_save off</code></li>
+    </ul>
+
+    <h3>Graphics / Display</h3>
+    <p><strong>Black screen on boot</strong></p>
+    <ul>
+        <li><strong>Fix</strong>: Add <code>nomodeset</code> to kernel params in GRUB. Then run installer Stage 2.</li>
+    </ul>
+
+    <p><strong>Stuttering / Glitches</strong></p>
+    <ul>
+        <li><strong>Fix</strong>: Ensure <code>xf86-video-amdgpu</code> is installed. Check
+            <code>dmesg | grep amdgpu</code> for firmware errors.</li>
+        <li><strong>Ref</strong>: <a href="https://wiki.archlinux.org/title/AMDGPU#Troubleshooting">Arch Wiki -
+                AMDGPU</a></li>
+    </ul>
+
+    <h3>Virtualization</h3>
+    <p><strong>LXD "Permission Denied"</strong></p>
+    <ul>
+        <li><strong>Fix</strong>: Log out and back in. Group membership (<code>lxd</code>) applies on next login.</li>
+    </ul>
+
+    <p><strong>VMs/Containers slow</strong></p>
+    <ul>
+        <li><strong>Fix</strong>: Verify SVM is enabled in BIOS: <code>dmesg | grep -i svm</code> should show "SVM
+            enabled".</li>
+    </ul>
+
+    <h3>AI / ROCm</h3>
+    <p><strong>"HIP device not found"</strong></p>
+    <ul>
+        <li><strong>Fix</strong>: Verify user is in <code>video</code> and <code>render</code> groups:
+            <code>groups</code>.</li>
+        <li><strong>Fix</strong>: Ensure <code>hsa-amd-aqlprofile-bin</code> is installed (handled by installer).</li>
+    </ul>
+
+    <hr>
+
+    <h2>Technical Architecture</h2>
+    <p>For a deep dive on how the installer works, stage dependencies, and deployment flow, see the <a
+            href="ARCHITECTURE.md">Architecture Document</a>.</p>
+
+    <div class="mermaid">
+        graph TD
+        A[Boot CachyOS] --> B[Install OS]
+        B --> C[Run strix-install]
+        C --> D{Check Device}
+        D -->|Beelink| E[Apply E610 Fix]
+        D -->|Framework| F[Standard Config]
+        E --> G[Install GPU Stack]
+        F --> G
+        G --> H[Setup Containers]
+    </div>
+
+</body>
+
+</html>
