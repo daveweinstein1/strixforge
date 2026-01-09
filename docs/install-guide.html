@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CachyOS Installation Guide: Strix Halo</title>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({ startOnLoad: true });</script>
+    <title>StrixForge: Strix Halo Linux Guide</title>
     <style>
         :root {
             --primary-color: #004d40;
@@ -201,16 +199,6 @@
             color: #1b5e20;
         }
 
-        /* Mermaid Diagram Container */
-        .mermaid {
-            text-align: center;
-            margin: 20px 0;
-            padding: 20px;
-            background: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-        }
-
         /* Mobile Adjustments */
         @media (max-width: 600px) {
             body {
@@ -291,7 +279,7 @@
     <div class="container">
         <header>
             <div>
-                <h1>CachyOS Installation Guide</h1>
+                <h1>StrixForge</h1>
                 <div class="meta">
                     Target: <strong>Strix Halo</strong> | Version: 2026.01.09 | Author: Dave Weinstein
                 </div>
@@ -307,7 +295,8 @@
         </header>
 
         <div class="overview">
-            <p>This guide covers installing CachyOS on Strix Halo hardware and running the post-install configuration
+            <p><strong>StrixForge</strong> is the definitive tool for forging a workstation-class Linux experience on
+                Strix Halo hardware. This guide covers installing CachyOS and running the post-install configuration
                 scripts. Please check the <strong>Hardware Compatibility Matrix</strong> below before beginning.</p>
         </div>
 
@@ -935,19 +924,6 @@ ROCm/AI
         <h2>Technical Architecture</h2>
         <p>For a deep dive on how the installer works, stage dependencies, and deployment flow, see the <a
                 href="ARCHITECTURE.md">Architecture Document</a>.</p>
-
-        <div class="mermaid">
-            graph TD
-            A[Boot CachyOS] --> B[Install OS]
-            B --> C[Run strix-install]
-            C --> D{Check Device}
-            D -->|Beelink| E[Apply E610 Fix]
-            D -->|Framework| F[Standard Config]
-            E --> G[Install GPU Stack]
-            F --> G
-            G --> H[Setup Containers]
-            H --> I[Optional: Container Hub]
-        </div>
 
         <hr style="margin: 40px 0; border: 0; border-top: 1px solid var(--border-color);">
 
