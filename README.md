@@ -26,10 +26,16 @@
 
 ---
 
-## Screenshot
+## Screenshots
 
 <p align="center">
-  <img src="assets/tui-screenshot.png" alt="TUI Screenshot" width="600">
+  <strong>Terminal (TUI)</strong><br>
+  <img src="strix-halo-setup/assets/tui-screenshot.png" alt="TUI Screenshot" width="500">
+</p>
+
+<p align="center">
+  <strong>Web UI (Browser)</strong><br>
+  <img src="strix-halo-setup/assets/gui-screenshot.png" alt="GUI Screenshot" width="500">
 </p>
 
 ---
