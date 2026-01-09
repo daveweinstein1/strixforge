@@ -39,6 +39,7 @@ func (p *Platform) Stages() []core.Stage {
 		stages.NewGraphicsStage(),
 		stages.NewSystemStage(),
 		stages.NewLXDStage(),
+		stages.NewThermalStage(),
 		stages.NewCleanupStage(),
 		stages.NewValidateStage(),
 		stages.NewAppsStage(),
