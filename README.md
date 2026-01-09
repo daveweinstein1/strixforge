@@ -35,6 +35,12 @@
 </p>
 
 <p align="center">
+  <strong>Container Marketplace (TUI)</strong><br>
+  <img src="assets/marketplace-screenshot.png" alt="Marketplace Screenshot" width="500"><br>
+  <em>Browse and install community toolboxes (kyuz0, AMD, etc.)</em>
+</p>
+
+<p align="center">
   <strong>Web UI (Browser)</strong><br>
   <em>Coming soon — graphical interface in development</em>
 </p>
