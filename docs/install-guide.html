@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StrixForge: Strix Halo Linux Guide</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
     <style>
         :root {
             --primary-color: #004d40;
@@ -197,6 +199,16 @@
             background-color: #e8f5e9;
             border-color: #66bb6a;
             color: #1b5e20;
+        }
+
+        /* Mermaid Diagram Container */
+        .mermaid {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
         }
 
         /* Mobile Adjustments */
@@ -467,8 +479,8 @@
                         <td>Forces Terminal UI</td>
                     </tr>
                     <tr>
-                        <td><code>--web</code></td>
-                        <td>Forces Web UI (localhost:8080)</td>
+                        <td><code>--gui</code></td>
+                        <td>Forces Graphical UI</td>
                     </tr>
                     <tr>
                         <td><code>--auto</code></td>
@@ -924,6 +936,19 @@ ROCm/AI
         <h2>Technical Architecture</h2>
         <p>For a deep dive on how the installer works, stage dependencies, and deployment flow, see the <a
                 href="ARCHITECTURE.md">Architecture Document</a>.</p>
+
+        <div class="mermaid">
+            graph TD
+            A[Boot CachyOS] --> B[Install OS]
+            B --> C[Run strix-install]
+            C --> D{Check Device}
+            D -->|Beelink| E[Apply E610 Fix]
+            D -->|Framework| F[Standard Config]
+            E --> G[Install GPU Stack]
+            F --> G
+            G --> H[Setup Containers]
+            H --> I[Optional: Container Hub]
+        </div>
 
         <hr style="margin: 40px 0; border: 0; border-top: 1px solid var(--border-color);">
 
