@@ -60,4 +60,18 @@ The **licensor** is the individual or entity offering these terms, and the **sof
 
 ---
 
+## Addendum — Additional Restrictions
+
+**Effective Date:** January 9, 2026
+
+The "Noncommercial Organizations" section of this license is hereby **superseded**. 
+
+Use by charitable organizations, educational institutions, public research organizations, public safety or health organizations, environmental protection organizations, and government institutions is **NOT permitted** without explicit written permission from the licensor.
+
+To request permission, open an issue at: https://github.com/daveweinstein1/strix-halo-setup/issues
+
+All other terms of the PolyForm Strict License 1.0.0 remain in full effect.
+
+---
+
 Copyright (c) 2026 Dave Weinstein
