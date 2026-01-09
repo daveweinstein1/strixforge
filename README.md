@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/logo.png" alt="Strix Halo Installer" width="120">
+  <img src="assets/logo.png" alt="Strixforge" width="120">
 </p>
 
-<h1 align="center">Strix Halo Post-Installer</h1>
+<h1 align="center">Strixforge</h1>
 
 <p align="center">
   <strong>Automated setup for AMD Strix Halo (gfx1151) workstations on CachyOS</strong>
@@ -55,7 +55,7 @@ Browse and install community containers from multiple sources directly in the in
 - **AMD Official**: AI frameworks (ComfyUI + ROCm)
 - **Community**: Verified contributions
 
-**Launch:** `strix-install --hub`
+**Launch:** `strixforge --hub`
 
 The hub integrates with your LXD environment, allowing you to install pre-configured containers into `ai-lab`, `dev-lab`, or custom instances with a single command.
 
@@ -63,7 +63,7 @@ The hub integrates with your LXD environment, allowing you to install pre-config
 
 ## Installation Guide
 
-📖 **[Online Installation Guide](https://daveweinstein1.github.io/strix-halo-setup/install-guide.html)** (Recommended)
+📖 **[Online Installation Guide](https://daveweinstein1.github.io/strixforge/install-guide.html)** (Recommended)
 
 📄 [Text Version](docs/INSTALL_GUIDE.md)
 
@@ -72,23 +72,23 @@ The hub integrates with your LXD environment, allowing you to install pre-config
 ## Quick Install
 
 ```bash
-curl -fsSL https://bit.ly/strix-halo | sudo bash
+curl -fsSL https://bit.ly/strixforge | sudo bash
 ```
 
 This downloads and runs the installer binary from GitHub Releases:
 ```bash
 # What the script does:
-curl -fsSL "https://github.com/.../strix-install" -o /tmp/strix-install
-chmod +x /tmp/strix-install
-/tmp/strix-install "$@"
-rm -f /tmp/strix-install
+curl -fsSL "https://github.com/.../strixforge" -o /tmp/strixforge
+chmod +x /tmp/strixforge
+/tmp/strixforge "$@"
+rm -f /tmp/strixforge
 ```
 
 View the full script: [install.sh](install.sh)
 
 **Direct download** (no bit.ly):
 ```bash
-curl -fsSL https://github.com/daveweinstein1/strix-halo-setup/releases/latest/download/strix-install -o /tmp/s && chmod +x /tmp/s && sudo /tmp/s
+curl -fsSL https://github.com/daveweinstein1/strixforge/releases/latest/download/strixforge -o /tmp/s && chmod +x /tmp/s && sudo /tmp/s
 ```
 
 **Installer Options:**
@@ -170,12 +170,12 @@ We're finalizing v1.0 before releasing under Apache 2.0. This prevents premature
 
 **ETA:** Apache 2.0 license coming with v1.0 release (January 2026)
 
-**Questions?** [Open an issue](https://github.com/daveweinstein1/strix-halo-setup/issues)
+**Questions?** [Open an issue](https://github.com/daveweinstein1/strixforge/issues)
 
 ---
 
 <p align="center">
   <strong>Author:</strong> Dave Weinstein<br>
-  <strong>Contact:</strong> <a href="https://github.com/daveweinstein1/strix-halo-setup/issues">GitHub Issues</a><br>
+  <strong>Contact:</strong> <a href="https://github.com/daveweinstein1/strixforge/issues">GitHub Issues</a><br>
   <strong>Updated:</strong> January 2026
 </p>

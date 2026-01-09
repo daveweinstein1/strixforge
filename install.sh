@@ -1,23 +1,23 @@
 #!/bin/bash
-# Strix Halo Post-Installer Bootstrap Script
-# This script downloads and runs the Strix Halo installer.
+# Strixforge Bootstrap Script
+# This script downloads and runs the Strixforge installer.
 #
-# Usage: curl -fsSL https://bit.ly/strix-halo | sudo bash
+# Usage: curl -fsSL https://bit.ly/strixforge | sudo bash
 #
 # What this script does:
-# 1. Downloads the latest strix-install binary from GitHub Releases
+# 1. Downloads the latest strixforge binary from GitHub Releases
 # 2. Makes it executable
 # 3. Runs it with any arguments passed to this script
 # 4. Cleans up the temporary file
 
 set -euo pipefail
 
-REPO="daveweinstein1/strix-halo-setup"
-BINARY="strix-install"
+REPO="daveweinstein1/strixforge"
+BINARY="strixforge"
 TMP_FILE="/tmp/${BINARY}"
 
-echo "Strix Halo Post-Installer Bootstrap"
-echo "===================================="
+echo "Strixforge Bootstrap"
+echo "===================="
 echo ""
 echo "Downloading latest release from GitHub..."
 
