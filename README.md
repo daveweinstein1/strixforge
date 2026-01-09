@@ -152,9 +152,9 @@ We chose the [PolyForm Strict License](https://polyformproject.org/licenses/stri
 ### What's Allowed
 
 - ✅ Personal/noncommercial use
-- ✅ Educational and research use
-- ✅ Government and nonprofit use
+- ✅ Private study, hobby projects, experimentation
 - ❌ Commercial use (requires separate license)
+- ❌ Government and nonprofit use (requires permission)
 - ❌ Redistribution (requires permission)
 
 ### Commercial Licensing
