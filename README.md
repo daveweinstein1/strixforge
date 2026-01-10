@@ -77,12 +77,12 @@ AI and development tools are **bleeding edge** — ROCm, PyTorch, and AI coding 
 
 We have written detailed guides to help you understand the architecture and get the most out of your hardware.
 
-* **[The Unified Memory Advantage](docs/Unified-Memory-Advantage.html)**, Why Strix Halo allows you to run models that even an RTX 5090 cannot touch.
-* **[Zero-Risk Architecture: Understanding LXD](docs/Zero-Risk-Architecture.html)**, How we use containers to isolate the fragile AI stack from your stable OS.
-* **[Supported Hardware & Known Quirks](docs/Supported-Hardware-and-Quirks.html)**, Specific notes for Framework, Minisforum, and Beelink users.
-* **[Benchmarks vs. Reality](docs/Benchmarks-vs-Reality.html)**, Moving past TFLOPS to measure real-world compile times and tokens/sec.
-* **[Community Recipes](docs/Community-Recipes.html)**, Verified stacks for Oobabooga, ComfyUI, and more.
-* **[Full Installation Guide](docs/install-guide.html)**, A step-by-step HTML guide for printing.
+* **[The Unified Memory Advantage](https://daveweinstein1.github.io/strixforge/Unified-Memory-Advantage.html)**, Why Strix Halo allows you to run models that even an RTX 5090 cannot touch.
+* **[Zero-Risk Architecture: Understanding LXD](https://daveweinstein1.github.io/strixforge/Zero-Risk-Architecture.html)**, How we use containers to isolate the fragile AI stack from your stable OS.
+* **[Supported Hardware & Known Quirks](https://daveweinstein1.github.io/strixforge/Supported-Hardware-and-Quirks.html)**, Specific notes for Framework, Minisforum, and Beelink users.
+* **[Benchmarks vs. Reality](https://daveweinstein1.github.io/strixforge/Benchmarks-vs-Reality.html)**, Moving past TFLOPS to measure real-world compile times and tokens/sec.
+* **[Community Recipes](https://daveweinstein1.github.io/strixforge/Community-Recipes.html)**, Verified stacks for Oobabooga, ComfyUI, and more.
+* **[Full Installation Guide](https://daveweinstein1.github.io/strixforge/install-guide.html)**, A step-by-step HTML guide for printing.
 
 ---
 
