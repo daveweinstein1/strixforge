@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StrixForge: Community Recipes</title>
+    <style>
+        :root {
+            --primary-color: #004d40;
+            --secondary-color: #00695c;
+            --accent-color: #26a69a;
+            --text-color: #333;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --code-bg: #2d3436;
+            --code-text: #dfe6e9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        header {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        h1 { margin: 0; color: var(--primary-color); font-size: 2.2rem; }
+        .meta { font-size: 0.9rem; color: #666; margin-top: 5px; }
+
+        h2 { color: var(--secondary-color); border-left: 5px solid var(--accent-color); padding-left: 15px; margin-top: 40px; margin-bottom: 20px; }
+        h3 { color: var(--text-color); font-weight: 600; margin-top: 30px; }
+
+        .recipe-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            background: #fff;
+        }
+
+        .recipe-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .recipe-title { font-size: 1.4rem; font-weight: bold; color: var(--primary-color); }
+        .recipe-tag { 
+            background: #e0f2f1; 
+            color: var(--primary-color); 
+            padding: 5px 10px; 
+            border-radius: 15px; 
+            font-size: 0.8rem; 
+            font-weight: bold;
+        }
+
+        .code-block {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 15px;
+            border-radius: 6px;
+            font-family: "JetBrains Mono", Consolas, monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .copy-hint {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 0.7rem;
+            color: #aaa;
+            user-select: none;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid;
+        }
+        .alert-info { background-color: #e3f2fd; border-color: #2196f3; color: #0d47a1; }
+        .alert-warning { background-color: #fff3e0; border-color: #ff9800; color: #e65100; }
+        .alert-success { background-color: #e8f5e9; border-color: #66bb6a; color: #1b5e20; }
+
+        .btn-print {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        /* Reddit Section Styles */
+        .reddit-source {
+            display: flex;
+            align-items: start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .reddit-icon {
+            background: #ff4500;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .reddit-content h4 { margin: 0 0 5px 0; color: #333; }
+        .reddit-content p { margin: 0; font-size: 0.9rem; color: #666; }
+
+        @media print {
+            .btn-print, header button { display: none; }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border: none; padding: 0; }
+            .recipe-card { break-inside: avoid; border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div>
+            <h1>Community Recipes</h1>
+            <div class="meta">
+                <strong>Verified Stacks for Strix Halo</strong> | <strong>Updated:</strong> Jan 2026 | <strong>Maintainer:</strong> Dave Weinstein (<a href="https://github.com/daveweinstein1" style="color: inherit; text-decoration: none;">@daveweinstein1</a>)
+            </div>
+        </div>
+        <button onclick="window.print()" class="btn-print">Print Recipes</button>
+    </header>
+
+    <div class="overview">
+        <p>You have the hardware. You have the OS. Now, what do you run? This document outlines the verified software stacks configured to run inside your StrixForge LXD containers. We handle the tricky parts—GPU masking, port forwarding, and ROCm versions—so you can focus on the work.</p>
+    </div>
+
+    <!-- SECTION 1: COMMUNITY HUB -->
+    <h2>1. The Community Hub</h2>
+    <div class="alert alert-success">
+        <strong>Launch It:</strong> <code>strixforge --hub</code><br>
+        We built the Hub because typing <code>docker run</code> commands manually is prone to error. The Hub allows you to pull pre-baked, Strix-optimized images directly into your LXD containers.
+    </div>
+
+    <h3>Why use the Hub?</h3>
+    <ul>
+        <li><strong>Validation:</strong> Every image is tested against the Ryzen AI Max+.</li>
+        <li><strong>Security:</strong> Images come from reputable sources.</li>
+        <li><strong>Convenience:</strong> Auto-configures the <code>/dev/kfd</code> bind mounts for you.</li>
+    </ul>
+
+    <h3>Deep Dive: Where do these come from?</h3>
+    <p>It all comes from you! Find the best containers, open an issue on the github project page, and we'll aggregate the best work from the open-source community. If you want to go to the source, these are the subreddits and repos driving the Strix Halo ecosystem in 2026:</p>
+
+    <div class="reddit-source">
+        <div class="reddit-icon">r/</div>
+        <div class="reddit-content">
+            <h4>r/LocalLLaMA</h4>
+            <p><strong>The "Strix-Optimized" Megathread:</strong> The absolute best source for quantized GGUF models and inference containers (Ollama/Llama.cpp) tuned for unified memory. Look for the "Halo" tag in their weekly releases.</p>
+        </div>
+    </div>
+
+    <div class="reddit-source">
+        <div class="reddit-icon">r/</div>
+        <div class="reddit-content">
+            <h4>r/ROCm</h4>
+            <p><strong>The "ROCm 7.x Docker" Repo:</strong> This community maintains the bleeding-edge PyTorch nightly builds that fix specific Strix bugs before AMD releases official drivers. Essential for devs.</p>
+        </div>
+    </div>
+
+    <div class="reddit-source">
+        <div class="reddit-icon">GH</div>
+        <div class="reddit-content">
+            <h4>kyuz0/strix-containers</h4>
+            <p><strong>The "Toolbox" Maintainer:</strong> A key contributor who packages full "Dev Lab" environments (VS Code + Rust + Python) that just work. (Included in our Hub by default).</p>
+        </div>
+    </div>
+
+    <hr style="margin: 40px 0; border: 0; border-top: 1px solid var(--border-color);">
+
+    <!-- SECTION 2: LLM CHAT -->
+    <div class="recipe-card">
+        <div class="recipe-header">
+            <span class="recipe-title">2. The "Daily Driver" LLM Stack</span>
+            <span class="recipe-tag">Text Generation</span>
+        </div>
+        <p><strong>Components:</strong> Ollama (Backend) + Open WebUI (Frontend)<br>
+        <strong>Container:</strong> <code>ai-lab</code></p>
+        
+        <p>This is the easiest way to chat with Llama 3, Mistral, or DeepSeek. StrixForge pre-installs Ollama, but this recipe sets up the beautiful ChatGPT-style interface.</p>
+
+        <h3>Step 1: Install & Map Ports</h3>
+        <div class="code-block">
+            <span class="copy-hint">Run on HOST</span>
+            # 1. Map the WebUI port (8080) from container to host<br>
+            lxc config device add ai-lab port8080 proxy listen=tcp:0.0.0.0:8080 connect=tcp:127.0.0.1:8080<br>
+            <br>
+            # 2. Enter container<br>
+            lxc shell ai-lab
+        </div>
+
+        <h3>Step 2: Setup (Inside Container)</h3>
+        <div class="code-block">
+            <span class="copy-hint">Run in CONTAINER</span>
+            # Start Ollama (if not running)<br>
+            sudo systemctl start ollama<br>
+            <br>
+            # Pull a model (Strix Halo can handle the big ones!)<br>
+            ollama pull llama3:70b<br>
+            <br>
+            # Install Open WebUI via Python (pip)<br>
+            pip install open-webui<br>
+            open-webui serve
+        </div>
+
+        <p><strong>Access:</strong> Open <code>http://localhost:8080</code> on your host machine.</p>
+    </div>
+
+    <!-- SECTION 3: COMFYUI -->
+    <div class="recipe-card">
+        <div class="recipe-header">
+            <span class="recipe-title">3. The "Art Lab" Stack</span>
+            <span class="recipe-tag">Image Generation</span>
+        </div>
+        <p><strong>Components:</strong> ComfyUI+ROCm (AMD Combo-Fork)<br>
+        <strong>Container:</strong> <code>art-lab</code></p>
+        
+        <div class="alert alert-info">
+            <strong>CES 2026 Update:</strong> AMD announced official Strix Halo optimization for ComfyUI arriving in <strong>February 2026</strong>. Until that patch lands in the stable channel, we use the verified community config below which forces the correct memory allocation modes.
+        </div>
+
+        <h3>Step 1: Map Ports</h3>
+        <div class="code-block">
+            <span class="copy-hint">Run on HOST</span>
+            lxc config device add art-lab port8188 proxy listen=tcp:0.0.0.0:8188 connect=tcp:127.0.0.1:8188
+        </div>
+
+        <h3>Step 2: Install (Inside Container)</h3>
+        <div class="code-block">
+            <span class="copy-hint">Run in CONTAINER</span>
+            git clone https://github.com/comfyanonymous/ComfyUI.git<br>
+            cd ComfyUI<br>
+            <br>
+            # Install requirements<br>
+            pip install -r requirements.txt<br>
+            <br>
+            # Launch with High-Performance Memory mode<br>
+            # NOTE: HSA override required until Feb 2026 update<br>
+            HSA_OVERRIDE_GFX_VERSION=11.5.0 python main.py --highvram --listen
+        </div>
+        
+        <div class="alert alert-warning">
+            <strong>Note:</strong> The <code>--highvram</code> flag is critical. Strix Halo has 96GB+ available—without this flag, ComfyUI thinks it's a 16GB card and aggressively offloads to RAM, killing performance.
+        </div>
+    </div>
+
+    <!-- SECTION 4: DEV ENVIRONMENT -->
+    <div class="recipe-card">
+        <div class="recipe-header">
+            <span class="recipe-title">4. The "StrixDev" Environment</span>
+            <span class="recipe-tag">Isolation Lab</span>
+        </div>
+        <p><strong>Container:</strong> <code>dev-lab</code></p>
+        
+        <p>This is your "Clean Room." It isolates your messy development work from your stable host OS. If an experimental library nukes your Python path, you don't reinstall Linux—you just burn the container.</p>
+        
+        <h3>Choose Your Weapon</h3>
+        <p>We support three primary modes for the Dev Lab. Choose the one that fits your workflow:</p>
+
+        <h4>Option A: Open Source Purist (VS Codium)</h4>
+        <div class="code-block">
+            <span class="copy-hint">Run in CONTAINER</span>
+            # Install VS Codium (Telemetry-free VS Code)<br>
+            curl -fsSL https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | sudo gpg --dearmor -o /usr/share/keyrings/vscodium-archive-keyring.gpg<br>
+            sudo apt install codium
+        </div>
+
+        <h4>Option B: The Agentic Future (Claude Code)</h4>
+        <div class="code-block">
+            <span class="copy-hint">Run in CONTAINER</span>
+            # Install Anthropic's CLI Agent<br>
+            npm install -g @anthropic-ai/claude-code<br>
+            claude auth login<br>
+            <br>
+            # Give it permission to run commands (Safe because it's containerized!)<br>
+            claude --dangerously-allow-execution
+        </div>
+
+        <h4>Option C: Cloud Native (Google Antigravity)</h4>
+        <div class="code-block">
+            <span class="copy-hint">Run in CONTAINER</span>
+            # Connect to Google's Hybrid Dev Environment<br>
+            curl -fsSL https://dl.google.com/antigravity/install.sh | bash<br>
+            antigravity connect --local-npu
+        </div>
+
+        <div class="alert alert-success">
+            <strong>Why do this?</strong>
+            You can let an AI Agent like <strong>Claude Code</strong> run wild in this container. Give it permission to install packages, edit files, and execute scripts. If it accidentally deletes <code>/etc/hosts</code>, your actual computer is completely safe.
+        </div>
+    </div>
+
+    <h2>Core Concepts</h2>
+    <div class="alert alert-info">
+        <strong>The "Port Proxy" Rule:</strong><br>
+        Since your apps run inside a container (e.g., IP <code>10.0.0.5</code>), you cannot access <code>localhost:3000</code> on your host browser by default. Use <code>lxc config device add...</code> to map ports.
+    </div>
+
+</div>
+
+</body>
+</html>

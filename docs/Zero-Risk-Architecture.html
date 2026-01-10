@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StrixForge: Zero-Risk Architecture (LXD)</title>
+    <style>
+        :root {
+            --primary-color: #004d40;
+            --secondary-color: #00695c;
+            --accent-color: #26a69a;
+            --text-color: #333;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --code-bg: #2d3436;
+            --code-text: #dfe6e9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        header {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        h1 { margin: 0; color: var(--primary-color); font-size: 2.2rem; }
+        .meta { font-size: 0.9rem; color: #666; margin-top: 5px; }
+
+        h2 { color: var(--secondary-color); border-left: 5px solid var(--accent-color); padding-left: 15px; margin-top: 40px; margin-bottom: 20px; }
+        h3 { color: var(--text-color); font-weight: 600; margin-top: 30px; }
+
+        .code-block {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 15px;
+            border-radius: 6px;
+            font-family: "JetBrains Mono", Consolas, monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid;
+        }
+        .alert-info { background-color: #e3f2fd; border-color: #2196f3; color: #0d47a1; }
+        .alert-success { background-color: #e8f5e9; border-color: #66bb6a; color: #1b5e20; }
+        .alert-danger { background-color: #ffebee; border-color: #ef5350; color: #c62828; }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        .comparison-table th {
+            background-color: #f8f9fa;
+            color: var(--primary-color);
+        }
+
+        blockquote {
+            background: #f9f9f9;
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+            padding: 15px 20px;
+            font-style: italic;
+        }
+        
+        blockquote cite {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #333;
+            font-style: normal;
+        }
+
+        .btn-print {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .ref-list { font-size: 0.85rem; color: #666; margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px; }
+        .ref-list ol { padding-left: 20px; }
+        .ref-list li { margin-bottom: 8px; }
+        .ref-list a { color: var(--secondary-color); text-decoration: none; }
+        .ref-list a:hover { text-decoration: underline; }
+
+        @media print {
+            .btn-print, header button { display: none; }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border: none; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div>
+            <h1>Zero-Risk Architecture</h1>
+            <div class="meta">
+                <strong>Topic:</strong> LXD Containerization & GPU Passthrough | <strong>Author:</strong> Dave Weinstein (<a href="https://github.com/daveweinstein1" style="color: inherit; text-decoration: none;">@daveweinstein1</a>)
+            </div>
+        </div>
+        <button onclick="window.print()" class="btn-print">Print Report</button>
+    </header>
+
+    <div class="overview">
+        <p>StrixForge allows you to treat your host OS (CachyOS) as an immutable "Hypervisor." You run your bleeding edge software safely within containers that can't harm your system. And it does this without the complexity of Proxmox or other virtualization platforms.</p>
+    </div>
+
+    <h2>1. The Problem: "It worked yesterday."</h2>
+    <p>To run modern AI workloads on AMD hardware, you need a fragile stack:</p>
+    <ul>
+        <li><strong>Kernel:</strong> Must be 6.12+ (for Strix support) but maybe not 6.14 (regression risk).</li>
+        <li><strong>ROCm:</strong> Version 7.2 requires specific LLVM versions.</li>
+        <li><strong>Python:</strong> PyTorch 2.5 wants Python 3.12, but your distro runs 3.13.</li>
+    </ul>
+    
+    <div class="alert alert-danger">
+        <strong>The "Dirty" Host:</strong> If you install these directly on your daily driver OS (Bare Metal), you risk breaking your desktop environment (GNOME/KDE) just to run a chatbot.
+    </div>
+
+    <h2>2. The Solution: LXD System Containers</h2>
+    <p>Most developers know Docker. <strong>LXD is not Docker.</strong></p>
+    
+    <ul>
+        <li><strong>Docker</strong> is for <em>Applications</em>. It is ephemeral. You restart it, data is gone (unless mounted). It is designed for microservices.</li>
+        <li><strong>LXD</strong> is for <em>Machines</em>. It creates a "System Container" that looks, feels, and acts exactly like a Virtual Machine (VM).</li>
+    </ul>
+
+    <div class="alert alert-info">
+        <strong>The User Experience:</strong>
+        When you run <code>lxc shell ai-lab</code>, you get a full root terminal. You can run <code>pacman -Syu</code>, install services, create users, and edit config files. It persists across reboots. It is a "Pet," not "Cattle."
+    </div>
+
+    <h3>Why not just use a VM (KVM/QEMU)?</h3>
+    <p>Virtual Machines have overhead. They emulate hardware. They reserve RAM. </p>
+    <ul>
+        <li><strong>VM Overhead:</strong> ~10-15% CPU loss, fixed RAM reservation.</li>
+        <li><strong>LXD Overhead:</strong> <strong>~0.1%</strong>. It shares the same kernel as the host.</li>
+    </ul>
+
+    <h2>3. The "Magic": Native GPU Passthrough</h2>
+    <p>The secret sauce of StrixForge is how we handle the GPU. In a traditional VM, passing through a GPU is a nightmare (IOMMU groups, VFIO binding, single-GPU lockout).</p>
+    
+    <p>In LXD, we simply "bind mount" the GPU device files from the host to the container. The container speaks directly to the hardware driver.</p>
+
+    <div class="code-block">
+        # How StrixForge configures the container:<br>
+        lxc config device add ai-lab gpu gpu gid=video
+    </div>
+
+    <p>This exposes <code>/dev/kfd</code> (Kernel Fusion Driver) and <code>/dev/dri/renderD128</code> to the container. The code running inside the container has <strong>direct, bare-metal access</strong> to the Strix Halo NPU and GPU cores.</p>
+
+    <h2>4. Performance Validation</h2>
+    <p>While Strix Halo specific benchmarks are still emerging, the underlying architecture of LXD/LXC has been rigorously tested against Bare Metal. The results are conclusive: <strong>Containers incur negligible overhead for compute tasks.</strong></p>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>Benchmark Metric</th>
+                <th>Bare Metal (Baseline)</th>
+                <th>LXD / Container</th>
+                <th>Traditional VM (KVM)</th>
+                <th>Source</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>CPU (Linpack)</strong></td>
+                <td>100%</td>
+                <td><strong>99.6%</strong></td>
+                <td>~85%</td>
+                <td>IBM Research</td>
+            </tr>
+            <tr>
+                <td><strong>Memory Bandwidth</strong></td>
+                <td>100%</td>
+                <td><strong>99.8%</strong></td>
+                <td>Varies significantly</td>
+                <td>IBM Research</td>
+            </tr>
+            <tr>
+                <td><strong>GPU Compute (CUDA)</strong></td>
+                <td>100%</td>
+                <td><strong>~98-99%</strong></td>
+                <td>Requires Passthrough</td>
+                <td>Phoronix</td>
+            </tr>
+            <tr>
+                <td><strong>Disk I/O (Random Ops)</strong></td>
+                <td>100%</td>
+                <td><strong>97-100%</strong></td>
+                <td>~60-80%</td>
+                <td>Phoronix</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <blockquote>
+        <cite>IBM Research Report RC25482 (Felter et al.)</cite>
+        "In general, Docker [and LXC] equals or exceeds KVM performance in every case we tested. For CPU and memory performance, KVM introduces significant overhead... while containers result in near-native performance."
+    </blockquote>
+
+    <h2>5. The "Oops" Button: Snapshots</h2>
+    <p>This is the killer feature for developers. Before you try to upgrade ROCm or install a bleeding-edge repo, you can snapshot the entire container state.</p>
+
+    <div class="code-block">
+        # Instant backup (takes < 1 second):<br>
+        lxc snapshot ai-lab before-breaking-stuff<br>
+        <br>
+        # ... you broke everything ...<br>
+        <br>
+        # Restore:<br>
+        lxc restore ai-lab before-breaking-stuff
+    </div>
+
+    <h2>Conclusion</h2>
+    <p>The actual AI work happens in containers you downloaded to try specific code, or in generic ones like the <code>ai-lab</code> and <code>dev-lab</code> containers. This architecture allows you to experiment with dangerous, bleeding-edge AI software without fear. If you break the lab, you just burn it down and spin up a new one, your house stays standing.</p>
+
+    <div class="ref-list">
+        <h3>References & Citations</h3>
+        <ol>
+            <li>
+                <strong>IBM Research (Felter et al.):</strong> 
+                <a href="https://domino.research.ibm.com/library/cyberdig.nsf/papers/0929052195DD819C85257D2300681E7B/$File/rc25482.pdf">"An Updated Performance Comparison of Virtual Machines and Linux Containers"</a> - The seminal paper establishing container performance parity.
+            </li>
+            <li>
+                <strong>Phoronix (Michael Larabel):</strong> 
+                <a href="https://www.phoronix.com/review/kvm-xen-lxc-docker">"Linux Containers Performance (LXC/Docker) vs. KVM/QEMU vs. Bare Metal"</a>
+            </li>
+            <li>
+                <strong>NVIDIA Technical Blog:</strong> 
+                <a href="https://developer.nvidia.com/blog/gpu-containers-runtime/">"Enabling GPUs in the Container Runtime Ecosystem"</a> - Details the near-zero overhead of device passthrough.
+            </li>
+        </ol>
+    </div>
+
+</div>
+
+</body>
+</html>

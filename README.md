@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/logo.png" alt="Strixforge" width="120">
+  <img src="assets/logo.png" alt="StrixForge" width="120">
 </p>
 
-<h1 align="center">Strixforge</h1>
+<h1 align="center">StrixForge</h1>
 
 <p align="center">
   <strong>Forge your Strix Halo into a Professional-Grade AI Workstation.</strong>
@@ -61,18 +61,6 @@ strixforge --hub
 * **AMD Official:** Standard AMD-maintained AI containers (ComfyUI-ROCm).
 * **Community:** Verified contributions for specific workflows.
 
-## Documentation & Deep Dives
-
-We have written detailed guides to help you understand the architecture and get the most out of your hardware.
-
-* **[The Unified Memory Advantage](doc/unified_memory_advantage.md)**, Why Strix Halo allows you to run models that even an RTX 4090 cannot touch.
-* **[Zero-Risk Architecture: Understanding LXD](doc/lxd_architecture.md)**, How we use containers to isolate the fragile AI stack from your stable OS.
-* **[Supported Hardware & Known Quirks](doc/hardware_quirks.md)**, Specific notes for Framework, Minisforum, and Beelink users.
-* **[Benchmarks vs. Reality](doc/real_world_benchmarks.md)**, Moving past TFLOPS to measure real-world compile times and tokens/sec.
-* **[Community Recipes](doc/community_recipes.md)**, Verified stacks for Oobabooga, ComfyUI, and more.
-* **[Full Installation Guide](doc/install_guide.html)**, A step-by-step HTML guide for printing.
----
-
 ## Why Containers?
 
 AI and development tools are **bleeding edge** — ROCm, PyTorch, and AI coding assistants update frequently with breaking changes. We isolate these in LXD containers so:
@@ -83,9 +71,24 @@ AI and development tools are **bleeding edge** — ROCm, PyTorch, and AI coding 
 
 📖 Full details: [Container Strategy](docs/CONTAINER_STRATEGY.md)
 
+---
+
+## Documentation & Deep Dives
+
+We have written detailed guides to help you understand the architecture and get the most out of your hardware.
+
+* **[The Unified Memory Advantage](docs/Unified-Memory-Advantage.html)**, Why Strix Halo allows you to run models that even an RTX 5090 cannot touch.
+* **[Zero-Risk Architecture: Understanding LXD](docs/Zero-Risk-Architecture.html)**, How we use containers to isolate the fragile AI stack from your stable OS.
+* **[Supported Hardware & Known Quirks](docs/Supported-Hardware-and-Quirks.html)**, Specific notes for Framework, Minisforum, and Beelink users.
+* **[Benchmarks vs. Reality](docs/Benchmarks-vs-Reality.html)**, Moving past TFLOPS to measure real-world compile times and tokens/sec.
+* **[Community Recipes](docs/Community-Recipes.html)**, Verified stacks for Oobabooga, ComfyUI, and more.
+* **[Full Installation Guide](docs/install-guide.html)**, A step-by-step HTML guide for printing.
+
+---
+
 ## The Origin Story
 
-The name **Strixforge** wasn't chosen by accident. In ancient mythology, the *Strix* was a bird of ill omen, a screeching owl that brought terror in the night. When we first got our hands on the AMD Strix Halo hardware, that's exactly what it felt like. The hardware was a beast, massive unified memory, incredible potential, but the software stack was a nightmare of broken dependencies, kernel panics, and fragmented documentation. It screeched at us every time we tried to run a simple inference, "GGGGGGGGG....", over and over. ;-)
+The name **StrixForge** wasn't chosen by accident. In ancient mythology, the *Strix* was a bird of ill omen, a screeching owl that brought terror in the night. When we first got our hands on the AMD Strix Halo hardware, that's exactly what it felt like. The hardware was a beast, massive unified memory, incredible potential, but the software stack was a nightmare of broken dependencies, kernel panics, and fragmented documentation. It screeched at us every time we tried to run a simple inference, "GGGGGGGGG....", over and over. ;-)
 
 We built this project to silence the screeching. We built it to take the raw, chaotic potential of the "Strix Halo" APU and put it through the Forge, hammering out the imperfections, taming the drivers, and sharpening the software stack until it became a precise, reliable tool.
 
@@ -110,7 +113,7 @@ You are a developer, a data scientist, or a power user. You know what a tensor i
 
 **Prerequisites:**
 * A machine with an AMD Strix Halo (Ryzen AI Max+) processor.
-* A fresh installation of **CachyOS** (recommended) or Arch Linux. (more tested Linux distros coming soon!)
+* A fresh installation of **CachyOS** (recommended) or Arch Linux. (more Linux distros coming soon!)
 * Secure Boot disabled in BIOS.
 
 **Installation:**

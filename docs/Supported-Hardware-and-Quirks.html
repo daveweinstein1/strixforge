@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StrixForge: Supported Hardware & Known Quirks</title>
+    <style>
+        :root {
+            --primary-color: #004d40;
+            --secondary-color: #00695c;
+            --accent-color: #26a69a;
+            --text-color: #333;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --code-bg: #2d3436;
+            --code-text: #dfe6e9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        header {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        h1 { margin: 0; color: var(--primary-color); font-size: 2.2rem; }
+        .meta { font-size: 0.9rem; color: #666; margin-top: 5px; }
+
+        h2 { color: var(--secondary-color); border-left: 5px solid var(--accent-color); padding-left: 15px; margin-top: 40px; margin-bottom: 20px; }
+        h3 { color: var(--text-color); font-weight: 600; margin-top: 30px; }
+
+        .device-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #fff;
+        }
+
+        .device-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .device-name { font-size: 1.25rem; font-weight: bold; color: var(--primary-color); }
+        
+        .fix-block {
+            background-color: #e8f5e9;
+            border-left: 4px solid #43a047;
+            padding: 10px 15px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .issue-block {
+            background-color: #ffebee;
+            border-left: 4px solid #ef5350;
+            padding: 10px 15px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.90rem;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .table-small table { font-size: 0.8rem; }
+
+        .btn-print {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        @media print {
+            .btn-print, header button { display: none; }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border: none; padding: 0; }
+            .device-card { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div>
+            <h1>Supported Hardware & Quirks</h1>
+            <div class="meta">
+                <strong>Status:</strong> Active Validation Database (2026-01-10) | <strong>Maintainer:</strong> Dave Weinstein (<a href="https://github.com/daveweinstein1" style="color: inherit; text-decoration: none;">@daveweinstein1</a>)
+            </div>
+        </div>
+        <button onclick="window.print()" class="btn-print">Print Database</button>
+    </header>
+
+    <div class="overview">
+        <p>This database tracks the specific implementation quirks of Strix Halo hardware. While the Ryzen AI Max+ chip is consistent, manufacturers vary in cooling, BIOS options, and peripheral controllers (especially 10GbE and USB4). We have validated the following devices in detail.</p>
+    </div>
+
+    <h2>Validated Hardware</h2>
+
+    <div class="device-card">
+        <div class="device-header">
+            <span class="device-name">Framework Desktop (Mainboard)</span>
+            <span><strong>Status:</strong> Validated</span>
+        </div>
+        <p><strong>Config:</strong> Ryzen AI Max+ 395 | 128GB LPDDR5x</p>
+        <p>The reference standard for StrixForge. We use the desktop-class mainboard for all internal testing.</p>
+
+        <div class="issue-block">
+            <strong>Note: Thermal Throttling</strong><br>
+            If used inside the Laptop 16 chassis, the "Performance" power profile generates significant fan noise.
+        </div>
+        <div class="fix-block">
+            <strong>StrixForge Action:</strong> We recommend using the Mainboard in a desktop/SFF enclosure for 24/7 AI workloads to maintain boost clocks without thermal constraints.
+        </div>
+    </div>
+
+    <div class="device-card">
+        <div class="device-header">
+            <span class="device-name">Beelink GTR9 Pro</span>
+            <span><strong>Status:</strong> Awaiting Next Hardware Revision</span>
+        </div>
+        <p><strong>Config:</strong> Ryzen AI Max+ 395 | 32/64/128GB</p>
+        
+        <div class="issue-block">
+            <strong>CRITICAL: Intel E610 10GbE Crash</strong><br>
+            On Linux Kernel 6.12+, the Intel I226-V / E610 NICs cause kernel panics or "soft lockups" under load.
+        </div>
+        <div class="fix-block">
+            <strong>BIOS Fix:</strong> Navigate to <code>Advanced</code> &rarr; <code>Demo Board</code> &rarr; <code>PCI-E Port</code> &rarr; <code>Device 3 Fun 2</code> and set to <strong>Disabled</strong>.<br>
+            <strong>Kernel Fix:</strong> StrixForge automatically applies `module_blacklist=ice` to prevents the driver from loading power management features.
+        </div>
+    </div>
+
+    <div class="device-card">
+        <div class="device-header">
+            <span class="device-name">Minisforum MS-S1 Max</span>
+            <span><strong>Status:</strong> Untested, but Expected to Work</span>
+        </div>
+        <p><strong>Config:</strong> Ryzen AI Max+ 395 | 32/64/96/128GB</p>
+        <p>Excellent connectivity options including OCuLink, but requires kernel parameters for stability.</p>
+
+        <div class="issue-block">
+            <strong>Issue: Rear USB4 Instability</strong><br>
+            The rear USB4 ports can be unstable with high-bandwidth devices.
+        </div>
+        <div class="fix-block">
+            <strong>StrixForge Action:</strong> The installer applies the `pcie_port_pm=off` kernel parameter to GRUB to enforce stable power states on the PCIe bus.
+        </div>
+    </div>
+
+    <h2>Hardware Ecosystem Watchlist</h2>
+    <p>The following devices have been announced or are shipping. We track their specs but have not yet performed deep-dive validation in the lab.</p>
+
+    <div class="table-responsive table-small">
+        <table>
+            <thead>
+                <tr>
+                    <th>Vendor</th>
+                    <th>Model</th>
+                    <th>Specs (CPU | Memory)</th>
+                    <th>Availability</th>
+                    <th>Notes / Quirks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Framework</strong></td>
+                    <td><strong>Framework Desktop</strong> (Mainboard)</td>
+                    <td>Max+ 395 | 32/64/128GB</td>
+                    <td>Backorder</td>
+                    <td>Thermal throttling in laptop chassis; Desktop recommended</td>
+                </tr>
+                <tr>
+                    <td><strong>Minisforum</strong></td>
+                    <td><strong>MS-S1 MAX</strong> (Mini PC)</td>
+                    <td>Max+ 395 | 32/64/96/128GB</td>
+                    <td>Shipping</td>
+                    <td>Rear USB4 requires kernel fix; OCuLink finicky</td>
+                </tr>
+                <tr>
+                    <td><strong>Minisforum</strong></td>
+                    <td><strong>N5 MAX</strong> (NAS)</td>
+                    <td>Max+ 395 | 32/64/128GB</td>
+                    <td>Announced</td>
+                    <td>5-Bay NAS form factor</td>
+                </tr>
+                <tr>
+                    <td><strong>Beelink</strong></td>
+                    <td><strong>GTR9 Pro</strong> (Mini PC)</td>
+                    <td>Max+ 395 | 32/64/128GB</td>
+                    <td>Preorder</td>
+                    <td><strong>Critical:</strong> Intel E610 10GbE crashes on Linux</td>
+                </tr>
+                <tr>
+                    <td><strong>HP</strong></td>
+                    <td><strong>ZBook Ultra 14 G1a</strong></td>
+                    <td>Max+ 395 | Up to 128GB</td>
+                    <td>Shipping</td>
+                    <td>Laptop form factor</td>
+                </tr>
+                <tr>
+                    <td><strong>HP</strong></td>
+                    <td><strong>Z2 Mini G1a</strong></td>
+                    <td>Max+ 395 | Up to 128GB</td>
+                    <td>Shipping</td>
+                    <td>Workstation Mini PC</td>
+                </tr>
+                <tr>
+                    <td><strong>ASUS</strong></td>
+                    <td><strong>ProArt PX13</strong></td>
+                    <td>Max+ 395 | 32/64GB</td>
+                    <td>Announced</td>
+                    <td>13" Laptop</td>
+                </tr>
+                <tr>
+                    <td><strong>ASUS</strong></td>
+                    <td><strong>TUF Gaming A14</strong></td>
+                    <td>Max+ 392 | 16/32/64GB</td>
+                    <td>Announced</td>
+                    <td>14" Laptop</td>
+                </tr>
+                <tr>
+                    <td><strong>Abee</strong></td>
+                    <td><strong>AI Station</strong></td>
+                    <td>Max+ 395 | Up to 128GB</td>
+                    <td>Announced</td>
+                    <td>Liquid Cooled; Internal 400W PSU</td>
+                </tr>
+                <tr>
+                    <td><strong>NIMO</strong></td>
+                    <td><strong>AI Mini PC</strong></td>
+                    <td>Max+ 395 | 128GB</td>
+                    <td>Announced</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>FAVM</strong></td>
+                    <td><strong>FA-EX9</strong></td>
+                    <td>Max+ 395 | 128GB</td>
+                    <td>Shipping</td>
+                    <td>Features OCuLink</td>
+                </tr>
+                <tr>
+                    <td><strong>MINIX</strong></td>
+                    <td><strong>Elite ER939-AI</strong></td>
+                    <td>Max+ 395 | Up to 128GB</td>
+                    <td>Announced</td>
+                    <td>Compact 2.75L chassis</td>
+                </tr>
+                <tr>
+                    <td><strong>Thermaltake</strong></td>
+                    <td><strong>Desktop Mini</strong></td>
+                    <td>Max+ 395 | Up to 128GB</td>
+                    <td>Announced</td>
+                    <td>Liquid Cooled; Hi-Fi style chassis with LCD</td>
+                </tr>
+                <tr>
+                    <td><strong>Linglong</strong></td>
+                    <td><strong>Star Core</strong></td>
+                    <td>Max+ 395 | Up to 128GB</td>
+                    <td>China Only</td>
+                    <td>Xiaomi ecosystem product</td>
+                </tr>
+                <tr>
+                    <td><strong>Aokzoe</strong></td>
+                    <td><strong>AI Mini PC</strong></td>
+                    <td>Max+ 395 | Up to 128GB</td>
+                    <td>Announced</td>
+                    <td>Performance button on chassis</td>
+                </tr>
+                <tr>
+                    <td><strong>AOOSTAR</strong></td>
+                    <td><strong>NEX395</strong></td>
+                    <td>Max+ 395 | 32/64/128GB</td>
+                    <td>Announced</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>GMKtec</strong></td>
+                    <td><strong>EVO-X2</strong></td>
+                    <td>Max+ 395 | Up to 128GB</td>
+                    <td>Shipping</td>
+                    <td>Severe fan noise; Thermal throttling reported</td>
+                </tr>
+                <tr>
+                    <td><strong>Colorful</strong></td>
+                    <td><strong>Smart 900</strong></td>
+                    <td>Max+ 395 | 96GB</td>
+                    <td>Announced</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Corsair</strong></td>
+                    <td><strong>AI Workstation 300</strong></td>
+                    <td>Max+ 395 | 64/128GB</td>
+                    <td>Shipping</td>
+                    <td>Proprietary Windows-only AI stack</td>
+                </tr>
+                <tr>
+                    <td><strong>Geekom</strong></td>
+                    <td><strong>A9 Mega</strong></td>
+                    <td>Max+ 395 | 32/64/128GB</td>
+                    <td>Backorder</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Bosgame</strong></td>
+                    <td><strong>M5 AI</strong></td>
+                    <td>Max+ 395 | 32/64/128GB</td>
+                    <td>Shipping</td>
+                    <td>Verify cooling before purchase</td>
+                </tr>
+                <tr>
+                    <td><strong>Peladn</strong></td>
+                    <td><strong>YO1</strong></td>
+                    <td>Max+ 395 | 32/64/128GB</td>
+                    <td>Announced</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Acemagic</strong></td>
+                    <td><strong>Tank M1A Pro+</strong></td>
+                    <td>Max+ 395 | 32/64/128GB</td>
+                    <td>Preorder</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Sixunited</strong></td>
+                    <td><strong>XN77 / AX835</strong></td>
+                    <td>Max+ 395 | 32/64/128GB</td>
+                    <td>China Only</td>
+                    <td>China-market focus</td>
+                </tr>
+                <tr>
+                    <td><strong>LCFC</strong></td>
+                    <td><strong>AI Mini PC</strong></td>
+                    <td>Max+ 395 | 32/64/128GB</td>
+                    <td>China Only</td>
+                    <td>Lenovo ODM</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
